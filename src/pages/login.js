@@ -45,7 +45,7 @@ const Login = () => {
 
                 </div>
                 <div className="login-button-container">
-                    <button type="button" >Continue Without a User</button>
+                    <button type="button" onClick={() => {navigate("/home");}}>Continue Without a User</button>
                 </div>
             </form>
         </div>

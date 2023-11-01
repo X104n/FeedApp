@@ -33,6 +33,7 @@ body {
     cursor: pointer;
     background-color: #808080;
     color: white;
+    border-radius: 5px;
 }
 
 .login-button-container button:hover {
