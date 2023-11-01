@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import './login.css';
+import '../style/login.css';
+import Register from "./register";
+import ReactDOM from 'react-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -37,11 +41,11 @@ const Login = () => {
                 </div>
                 <div className="login-button-container">
                     <button type="submit">Login</button>
-                    <button type="button">Register New User</button>
+                    <button type="button" onClick={() => {navigate("/register");}}>Register New User</button>
 
                 </div>
                 <div className="login-button-container">
-                    <button type="button">Continue Without a User</button>
+                    <button type="button" >Continue Without a User</button>
                 </div>
             </form>
         </div>
