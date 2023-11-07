@@ -1,41 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import NavBar from '../navbar';
+import Post from './post';
+import '../style/main.css';
 
 const Main = () => {
- const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
- useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('');
-        setPosts(response.data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
+  const fetchPosts = () => {
+    fetch('http://localhost:8080/todos')
+      .then((response) => 
+        response.json())
+      .then(data => 
+        setPosts(data))
+  }
 
+  /* const handleLogPosts = () => {
+    console.log(posts);
+  };
+  <button onClick={handleLogPosts}>Log</button>
+  */
+
+  useEffect(() => {
     fetchPosts();
- }, []);
+  }, []);
 
  return (
     <>
     <NavBar />
-    <div>
-        {posts.length > 0 && (
-            <>
-                <h1>Posts</h1>
-                <ul>
-                    {posts.map(post => (
-                        <li key={post.id}>
-                            <h2>{post.title}</h2>
-                            <p>{post.body}</p>
-                        </li>
-                    ))}
-                </ul>
-            </>
+      <h1>This is all the posts</h1>
+      <div className='poll-list'>
+        {posts.map(post => 
+          <Post 
+            id = {post.id}
+            summary = {post.summary}
+            description = {post.description}
+          />
         )}
-    </div>
+      </div>
+      
     </>
  );
 };

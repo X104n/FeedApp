@@ -1,0 +1,32 @@
+body {
+    background-color: #f4f4f4;
+}
+
+.poll-list {
+    background-color: gray;
+    border-radius: 5px;
+    align-items: center;
+    margin: 20%;
+    margin-top: 50px;
+    padding: 20px; /* Add padding to create space between the polls */
+    border-color: black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.poll {
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px 0; /* Add margin to the top and bottom */
+    padding: 10px; /* Add padding to create space between the poll options */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border-color: black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.poll-list :hover {
+    opacity: 0.8;
+}

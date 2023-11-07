@@ -1,0 +1,27 @@
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    max-width: 10%;
+    margin: auto;
+    background-color: white;
+    margin-top: 50px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.content {
+    background-color: white;
+    border-radius: 5px;
+    align-items: center;
+    margin: 20%;
+    margin-top: 50px;
+    padding: 20px; /* Add padding to create space between the polls */
+    border-color: black;
+    box-shadow: 1px 1px 1px 1px gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

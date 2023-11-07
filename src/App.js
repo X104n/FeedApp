@@ -3,6 +3,7 @@ import './App.css';
 import Login from './pages/login';
 import Register from './pages/register';
 import Main from './pages/main';
+import Poll from './pages/poll';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route exact path="/" element={<Login />}/>
       <Route path="/register" element={<Register />}/>
       <Route path="/home" element={<Main />}/>
+      <Route path="/poll/:id" element={<Poll />}/>
     </Routes>
   );
 }

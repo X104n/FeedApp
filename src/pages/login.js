@@ -11,7 +11,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you can call your login function
         console.log('Username:', username, 'Password:', password);
     };
 
