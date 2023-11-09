@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import '../style/register.css';
-import Login from "./login";
-import ReactDOM from 'react-dom';
 import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
     const navigate = useNavigate();
+    //const [showNotification, setShowNotification] = useState(false);
     
     const [formData, setFormData] = useState({
         username: '',
@@ -29,22 +28,39 @@ const Register = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-        } else if (email !== confirmEmail) {
-            alert('Emails do not match');
-        } else {
-            handleRegisterClick();
-        }
+        const data = {
+            username,
+            password
+        };
+        fetch('http://localhost:8080/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                // TODO: write the correct response status codes.
+                if (response.status === 200) return response.text();
+                else if (response.status === 401 || response.status === 403) {
+                    alert("Invalid username or password");
+                    //setErrorMsg("Invalid username or password");
+                } else {
+                    //setShowNotification(true);
+            }
+                response.json()
+            })
+            .then(data => {
+                console.log(data)
+                if (data) {
+                    navigate("/");
+                }
+            })
+            .catch(error => {
+                console.error(error)
+            });
+        //setShowNotification(false);
     };
-
-    const handleRegisterClick = () => {
-        console.log('Username:', username, 'Password:', password, 'Email:', email);
-    }
-
-    const handleBackClick = () => {
-        ReactDOM.render(<Login />, document.getElementById('root'));
-    }
 
     return (
         <div className="body">

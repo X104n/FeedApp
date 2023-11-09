@@ -1,20 +1,50 @@
 import React, { useState } from 'react';
 import '../style/login.css';
-import Register from "./register";
-import ReactDOM from 'react-dom';
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider";
+import Notification from "./notification";
+import Cookies from "js-cookie";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const user = useUser();
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+    //const [errorMsg, setErrorMsg] = useState('');
+    const [showNotification, setShowNotification] = useState(false);
+
+    const handleAnonymous = (e) => {
+        setUsername("anonymous");
+        handleSubmit(e)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Username:', username, 'Password:', password);
+        const data = {
+            username,
+            password
+        };
+        fetch('http://localhost:8080/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json()
+            )
+            .then(data => {
+                console.log(data)
+                Cookies.set("token", data.username);
+                navigate("/home");
+            })
+            .catch(error => console.error(error));
+        setShowNotification(false);
     };
 
     return (
+        <>
+        {showNotification && <Notification message="Something went wrong" />}
         <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
@@ -44,10 +74,11 @@ const Login = () => {
 
                 </div>
                 <div className="login-button-container">
-                    <button type="button" onClick={() => {navigate("/home");}}>Continue Without a User</button>
+                    <button type="button" onClick={handleAnonymous}>Continue Without a User</button>
                 </div>
             </form>
         </div>
+        </>
     );
 };
 

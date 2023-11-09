@@ -4,6 +4,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Main from './pages/main';
 import Poll from './pages/poll';
+import NewPoll from './pages/newPoll';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/register" element={<Register />}/>
       <Route path="/home" element={<Main />}/>
       <Route path="/poll/:id" element={<Poll />}/>
+      <Route path="/newPoll" element={<NewPoll />}/>
     </Routes>
   );
 }
