@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import NavBar from '../navbar';
 import Cookies from 'js-cookie';
 import '../style/newPoll.css';
-import { Navigate, redirect } from 'react-router-dom';
 
 function NewPoll() {
     const url = 'http://localhost:8080/poll';

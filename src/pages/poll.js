@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Add useCallback
 import { useParams } from 'react-router-dom';
 import NavBar from '../navbar';
 import '../style/poll.css';
@@ -11,13 +11,14 @@ function Poll() {
         console.log(data);
     }
 
-    const fetchPosts = () => {
+    const fetchPosts = useCallback(() => { // Wrap fetchPosts with useCallback
       fetch(`http://localhost:8080/poll/${id}`)
         .then((response) => 
           response.json())
         .then(data => 
           setData(data))
-    }
+    }, [id]); // Add id to the dependency array of useCallback
+
 
 	const postVote = (vote) => {
 		fetch('http://localhost:8080/vote', {
@@ -48,7 +49,8 @@ function Poll() {
 
     useEffect(() => {
       fetchPosts();
-    }, [data]);
+    }, [fetchPosts]); // Add fetchPosts to the dependency array of useEffect
+
 
     return (
         <>

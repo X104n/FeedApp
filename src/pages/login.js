@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../style/login.css';
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../UserProvider";
 import Notification from "./notification";
 import Cookies from "js-cookie";
 

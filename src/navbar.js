@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,6 @@ import { jwtDecode } from 'jwt-decode';
 
 const NavBar = ({ history, loggedInUser, onLogout }) => {
     const navigate = useNavigate();
-    
-    const [dropdownOpen, setDropdownOpen] = useState(true);
 
     const handleLogout = () => {
         Cookies.remove('token');
