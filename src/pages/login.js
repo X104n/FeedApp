@@ -30,7 +30,7 @@ const Login = () => {
             body: JSON.stringify(data)
         })
             .then(response => {
-                //if (!response.ok){throw new Error("Something went wrong");}
+                if (!response.ok){throw new Error("Something went wrong");}
                 return response.text()
             })
             .then(data => {
@@ -38,7 +38,7 @@ const Login = () => {
                 navigate("/home");
             })
             .catch(error => {
-                console.error(error);
+                alert(error)
                 setShowNotification(false);
             });
     };
