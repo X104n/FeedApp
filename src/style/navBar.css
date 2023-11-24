@@ -36,6 +36,18 @@ body {
         box-shadow: #000000 1px 1px 1px 1px;
 }
 
+.navBar ul button {
+        background-color: gray;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 5px;
+        box-shadow: #000000 1px 1px 1px 1px;
+}
+
+.navBar ul button:hover {
+        opacity: 0.8;
+}
+
 .elem {
         color: white;
         text-decoration: none;
@@ -48,21 +60,6 @@ body {
 
 .navBar li:hover {
         opacity: 0.8;
-}
-
-.elem button {
-        width: 55%;
-        height: 30px;
-        margin: 10px;
-        border: black;
-        cursor: pointer;
-        background-color: #808080;
-        color: white;
-        border-radius: 5px;
-}
-
-.elem button:hover {
-opacity: 0.8;
 }
 
 @media (max-width: 768px) {

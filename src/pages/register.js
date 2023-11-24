@@ -8,7 +8,7 @@ const Register = () => {
     //const [showNotification, setShowNotification] = useState(false);
     
     const [formData, setFormData] = useState({
-        username: '',
+        name: '',
         password: '',
         confirmPassword: '',
         email: '',
@@ -16,7 +16,7 @@ const Register = () => {
     });
 
     const {
-        username,
+        name,
         password,
         confirmPassword,
         email,
@@ -29,8 +29,9 @@ const Register = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         const data = {
-            username,
-            password
+            name,
+            password,
+            email
         };
         fetch('http://localhost:8080/user', {
             method: 'POST',
@@ -43,15 +44,14 @@ const Register = () => {
                 // TODO: write the correct response status codes.
                 if (response.status === 200) return response.text();
                 else if (response.status === 401 || response.status === 403) {
-                    alert("Invalid username or password");
-                    //setErrorMsg("Invalid username or password");
+                    alert("Invalid name or password");
+                    //setErrorMsg("Invalid name or password");
                 } else {
                     //setShowNotification(true);
             }
                 response.json()
             })
             .then(data => {
-                console.log(data)
                 if (data) {
                     navigate("/");
                 }
@@ -68,12 +68,12 @@ const Register = () => {
             <h2>Create new user</h2>
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="input-field">
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="name">name:</label>
                     <input
                         type="text"
-                        id="username"
-                        name="username"
-                        value={username}
+                        id="name"
+                        name="name"
+                        value={name}
                         onChange={(e) => onChange(e)}
                         required
                     />

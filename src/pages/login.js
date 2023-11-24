@@ -7,39 +7,41 @@ import Cookies from "js-cookie";
 
 const Login = () => {
     const navigate = useNavigate();
-    const user = useUser();
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
     //const [errorMsg, setErrorMsg] = useState('');
     const [showNotification, setShowNotification] = useState(false);
 
     const handleAnonymous = (e) => {
-        setUsername("anonymous");
+        setName("anonymous");
         handleSubmit(e)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            username,
-            password
+            name: name === '' ? 'Anonymous' : name,
+            password: password === 'password' ? null : password
         };
-        fetch('http://localhost:8080/user', {
+        fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json()
-            )
+            .then(response => {
+                //if (!response.ok){throw new Error("Something went wrong");}
+                return response.text()
+            })
             .then(data => {
-                console.log(data)
-                Cookies.set("token", data.username);
+                Cookies.set('token', data); // Set the cookie named 'token' with the value of temp
                 navigate("/home");
             })
-            .catch(error => console.error(error));
-        setShowNotification(false);
+            .catch(error => {
+                console.error(error);
+                setShowNotification(false);
+            });
     };
 
     return (
@@ -49,13 +51,13 @@ const Login = () => {
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="name">Name:</label>
                     <input
                         type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        id="name"
+                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div className="form-group">

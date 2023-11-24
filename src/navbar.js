@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import './style/navBar.css';
+import { jwtDecode } from 'jwt-decode';
 
 const NavBar = ({ history, loggedInUser, onLogout }) => {
     const navigate = useNavigate();
-    const userDisplay = loggedInUser ? loggedInUser : 'Guest';
+    
     const [dropdownOpen, setDropdownOpen] = useState(true);
 
     const handleLogout = () => {
@@ -14,12 +15,20 @@ const NavBar = ({ history, loggedInUser, onLogout }) => {
         navigate('/');
     }
 
+    const getUsername = () => {
+        const token = Cookies.get('token');
+        const decodedToken = jwtDecode(token);
+        return decodedToken.name;
+    }
+
+    const userDisplay = getUsername();
+
     return (
         <nav className="navBar">
             <ul>
-                <li>
+                
                     <button className="elem" onClick={handleLogout}>Log out</button>
-                </li>
+                
                 <li>
                     <Link to="/home" className="elem">Home</Link>
                 </li>
