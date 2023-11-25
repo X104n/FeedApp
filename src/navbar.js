@@ -31,9 +31,7 @@ const NavBar = ({ history, loggedInUser, onLogout }) => {
                     <Link to="/home" className="elem">Home</Link>
                 </li>
                 <li>
-                    <div className="elem">
-                        Logged in as: {userDisplay}
-                    </div>
+                    <Link to="/profile" className="elem">Logged in as {userDisplay}</Link>
                 </li>
             </ul>
         </nav>
