@@ -10,21 +10,27 @@ const Profile = () => {
     const decodedToken = jwtDecode(token);
     const userName = decodedToken.name;
     const userEmail = decodedToken.email;
-    const userPolls = decodedToken.polls;
 
     const [polls, setPolls] = useState([]);
 
-    useEffect(() => {
-        Promise.all(userPolls.map(pollId => 
-            fetch(`http://localhost:8080/poll/${pollId}`)
-                .then(response => response.json())
-        ))
-        .then(fetchedPolls => {
-            console.log(fetchedPolls); // Log the fetched polls
-            setPolls(fetchedPolls);
+    const test = () => {
+        console.log(polls)
+    }
+
+    test(() => {
+        fetch('http://localhost:8080/user/poll', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': Cookies.get('token')
+            }
         })
-        .catch(error => console.error('Error:', error));
-    }, [userPolls]);
+            .then(response => {
+                console.log(response);
+                return response.text()
+            })
+            .then(data => setPolls(data))
+        })
 
     return (
         <>
@@ -36,14 +42,9 @@ const Profile = () => {
                     <p>Email: {userEmail}</p>
                     <h2>Your Polls:</h2>
                     <ul>
-                    {polls.map(poll => 
-                    <Post 
-                        key = {poll.id}
-                        id = {poll.id}
-                        title = {poll.title}
-                        question = {poll.question}
-                    />
-                    )}
+                        <li>
+                            <button className='poll-button' onClick={test}>Poll 1</button>
+                        </li>
                     </ul>
                 </div>
             </div>
