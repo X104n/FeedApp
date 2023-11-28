@@ -15,6 +15,9 @@ const NavBar = ({ history, loggedInUser, onLogout }) => {
 
     const getUsername = () => {
         const token = Cookies.get('token');
+        if (token === '') {
+            return 'Anonymous';
+        }
         const decodedToken = jwtDecode(token);
         return decodedToken.name;
     }

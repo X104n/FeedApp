@@ -11,17 +11,19 @@ const Login = () => {
     //const [errorMsg, setErrorMsg] = useState('');
     const [showNotification, setShowNotification] = useState(false);
 
+
     const handleAnonymous = (e) => {
-        setName("anonymous");
-        handleSubmit(e)
+        Cookies.set('token', '')
+        navigate("/home")
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            name: name === '' ? 'Anonymous' : name,
-            password: password === 'password' ? null : password
+            name: name,
+            password: password
         };
+        
         fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {

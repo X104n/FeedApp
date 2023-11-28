@@ -33,9 +33,6 @@ const Main = () => {
       <Link to='/newPoll' className='bar-button'> 
         Create new poll
       </Link>
-      <Link to='/search' className='bar-button'>
-        Search for poll
-      </Link>
     </div>
       
       <div className='poll-list'>

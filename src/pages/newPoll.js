@@ -42,15 +42,20 @@ function NewPoll() {
             startDate,
             endDate
         };
+
+        console.log(data);
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + Cookies.get('token')
+                'Authorization': Cookies.get('token')
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                return response.text()
+            })
             .then(data => {
                 console.log(data)
             })
