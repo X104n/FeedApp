@@ -12,7 +12,7 @@ const Main = () => {
     fetch('http://localhost:8080/poll', {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + Cookies.get('token'),
+        'Authorization': Cookies.get('token')
       }
     })
       .then( (response) => {
