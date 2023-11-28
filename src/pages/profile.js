@@ -3,7 +3,7 @@ import NavBar from '../navbar';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import '../style/register.css';
-import Post from './post';
+import UpdatePost from './updatePost';
 
 const Profile = () => {
     const token = Cookies.get('token');
@@ -14,17 +14,29 @@ const Profile = () => {
     const [posts, setPosts] = useState([]);
 
     const fetchPosts = () => {
-        fetch('http://localhost:8080/poll', {
+        fetch('http://localhost:8080/user/poll', {
             method: 'GET',
             headers: {
                 'Authorization': Cookies.get('token')
             }
         })
-            .then((response) => {
-                return response.json()
-            })
-            .then(data =>
-                setPosts(data))
+        .then((response) => {
+            if (!response.ok) {
+                console.error(`Response status: ${response.status}, status text: '${response.statusText}'`);
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data) {
+                setPosts(data);
+            } else {
+                console.log('No data received');
+            }
+        })
+        .catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
     }
 
     useEffect(() => {
@@ -41,7 +53,7 @@ const Profile = () => {
                     <p>Email: {userEmail}</p>
                     <h2>Your Polls:</h2>
                     {posts.map(post => 
-                    <Post 
+                    <UpdatePost 
                         key = {post.id}
                         id = {post.id}
                         title = {post.title}
