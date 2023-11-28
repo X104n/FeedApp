@@ -7,9 +7,13 @@ import UpdatePost from './updatePost';
 
 const Profile = () => {
     const token = Cookies.get('token');
+    let userName, userEmail;
+
+    if (token) {
     const decodedToken = jwtDecode(token);
-    const userName = decodedToken.name;
-    const userEmail = decodedToken.email;
+    userName = decodedToken.name;
+    userEmail = decodedToken.email;
+    }
 
     const [posts, setPosts] = useState([]);
 
@@ -48,18 +52,27 @@ const Profile = () => {
             <NavBar />
             <div className='body'>
                 <div className='register-container'>
-                    <h1>Profile</h1>
-                    <p>Name: {userName}</p>
-                    <p>Email: {userEmail}</p>
-                    <h2>Your Polls:</h2>
-                    {posts.map(post => 
-                    <UpdatePost 
-                        key = {post.id}
-                        id = {post.id}
-                        title = {post.title}
-                        question = {post.question}
-                    />
-                    )}
+                {token ? (
+                    <div>
+                        <h1>Your Profile</h1>
+                        <h2>Welcome, {userName}</h2>
+                        <p>Your email is: {userEmail}</p>
+                        <h2>Your Polls:</h2>
+                        {posts.map(post => 
+                        <UpdatePost 
+                            key = {post.id}
+                            id = {post.id}
+                            title = {post.title}
+                            question = {post.question}
+                            startDate = {post.startDate}
+                            endDate = {post.endDate}
+                            requireLogin = {post.requireLogin}
+                        />
+                        )}
+                    </div>
+                ) : (
+                    <h1>You are anonymous</h1>
+                )}
                 </div>
             </div>
         </>

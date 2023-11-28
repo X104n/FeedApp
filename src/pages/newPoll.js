@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import NavBar from '../navbar';
 import Cookies from 'js-cookie';
 import '../style/newPoll.css';
+import { useNavigate } from 'react-router-dom';
 
 function NewPoll() {
+    const navigate = useNavigate();
     const url = 'http://localhost:8080/poll';
     const [title, setTitle] = useState('');
     const [question, setQuestion] = useState('');
@@ -52,14 +54,20 @@ function NewPoll() {
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                console.log(response)
-                return response.text()
-            })
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => console.error(error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log(response)
+            return response.text()
+        })
+        .then(data => {
+            console.log(data)
+            navigate('/home')
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
     };
 
     return (
