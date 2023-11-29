@@ -8,7 +8,7 @@ export default function UpdatePost(props) {
     const navigate = useNavigate();
 
     const deletePost = () => {
-        const url = `http://localhost:8080/poll`; // Adjust the URL as necessary
+        const url = `http://localhost:8080/poll`;
         fetch(url, {
             method: "DELETE",
             headers: {
