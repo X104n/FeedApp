@@ -50,9 +50,7 @@ function Poll() {
     const postVote = (vote) => {
         let method = 'POST';
         let hasVoted = false;
-        console.log("Methind is POSt")
         if (Cookies.get('token') !== "") {
-          console.log("Not here")
             
 
             if (userData && userData.votes) {
@@ -71,11 +69,6 @@ function Poll() {
 		if (hasVoted) {
 			method = 'PUT';
 		}
-		
-		console.log("Debug")
-		console.log(method);
-		console.log(vote);
-		console.log(userData)
 
 		fetch('http://localhost:8080/vote', {
 			method: method,
